@@ -12,6 +12,21 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/companies", (_req, res) => {
+  if(companies.size === 0) {
+    res.json([{
+      id: "abc123",
+      name: "First mock company",
+      address: {
+        street: "Heimstrasse",
+        number: "8",
+        city: "Zurich",
+        country: "Switzerland"
+      },
+      employees: [
+        {name: "Jhon Doe", salary: 120000}
+      ]
+    }]);
+  }
   res.json([...companies.values()]);
 });
 
