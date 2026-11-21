@@ -3,6 +3,7 @@ import cors from "cors";
 import { randomUUID } from "node:crypto";
 import type { Company } from "./types";
 import { invalidCompanyError, parseCompany } from "./validation";
+import {initialData} from "./mock-data";
 
 const port = 3000;
 const companies = new Map<string, Company>();
@@ -12,21 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/companies", (_req, res) => {
-  if(companies.size === 0) {
-    res.json([{
-      id: "abc123",
-      name: "First mock company",
-      address: {
-        street: "Heimstrasse",
-        number: "8",
-        city: "Zurich",
-        country: "Switzerland"
-      },
-      employees: [
-        {name: "John Doe", salary: 120000}
-      ]
-    }]);
-  }
+  if (companies.size === 0) return void res.json(initialData);
   res.json([...companies.values()]);
 });
 
