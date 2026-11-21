@@ -23,7 +23,7 @@ app.get("/companies", (_req, res) => {
         country: "Switzerland"
       },
       employees: [
-        {name: "Jhon Doe", salary: 120000}
+        {name: "John Doe", salary: 120000}
       ]
     }]);
   }
