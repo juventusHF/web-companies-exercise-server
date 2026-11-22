@@ -1,8 +1,8 @@
-import {Company} from "./types";
+import { randomUUID } from "node:crypto";
+import type { Company } from "./types";
 
-export const initialData: Company[] = [
+const initialData: Omit<Company, "id">[] = [
   {
-    id: "abc123",
     name: "First mock company",
     address: {
       street: "Heimstrasse",
@@ -15,7 +15,6 @@ export const initialData: Company[] = [
     ]
   },
   {
-    id: "def456",
     name: "Second mock company",
     address: {
       street: "Zanderweg",
@@ -29,7 +28,6 @@ export const initialData: Company[] = [
     ]
   },
   {
-    id: "ghi789",
     name: "Third mock company",
     address: {
       street: "Adlerstrasse",
@@ -39,4 +37,11 @@ export const initialData: Company[] = [
     },
     employees: []
   }
-]
+];
+
+export function seed(companies: Map<string, Company>) {
+  for (const data of initialData) {
+    const id = randomUUID();
+    companies.set(id, { id, ...data });
+  }
+}

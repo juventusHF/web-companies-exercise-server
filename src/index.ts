@@ -3,17 +3,17 @@ import cors from "cors";
 import { randomUUID } from "node:crypto";
 import type { Company } from "./types";
 import { invalidCompanyError, parseCompany } from "./validation";
-import {initialData} from "./mock-data";
+import { seed } from "./seed";
 
 const port = 3000;
 const companies = new Map<string, Company>();
+seed(companies);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.get("/companies", (_req, res) => {
-  if (companies.size === 0) return void res.json(initialData);
   res.json([...companies.values()]);
 });
 
